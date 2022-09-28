@@ -9,7 +9,7 @@ public class BulletView : MonoBehaviour
 
     private float _radius = 0.3f;
 
-    private float _groundLevel = 0;
+    private float _groundLevel = (float)-4.175;
 
     private float _acceleration = -10;
 
