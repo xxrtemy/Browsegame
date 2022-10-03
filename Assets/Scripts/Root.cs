@@ -18,11 +18,15 @@ public class Root : MonoBehaviour
     [SerializeField]
     private SpriteAnimationsConfig _spriteAnimationConfig;
 
+    [SerializeField]
+    private List<CoinView> _coinViews;
+
     private ParalaxManager _paralaxManager;
     private SpriteAnimator _spriteAnimator;
-    private PlayerWalk _playerWalk;
     private AimingMuzzle _aimingMuzzle;
     private BulletsEmitter _bulletsEmitter;
+    private PhysicsPlayerWalk _physicsPlayerWalk;
+    private CoinsManager _coinsManager;
 
 
     [SerializeField]
@@ -33,8 +37,9 @@ public class Root : MonoBehaviour
         _paralaxManager = new ParalaxManager(_camera, _background.transform);
         _aimingMuzzle = new AimingMuzzle(_cannonView.transform, _characterView.transform);
         _spriteAnimator = new SpriteAnimator(_spriteAnimationConfig);
-        _playerWalk = new PlayerWalk(_characterView, _spriteAnimator);
         _bulletsEmitter = new BulletsEmitter(_bullets, _cannonView.MuzzleTransform);
+        _physicsPlayerWalk = new PhysicsPlayerWalk(_characterView, _spriteAnimator);
+        _coinsManager = new CoinsManager(_coinViews);
 
     }
 
@@ -42,18 +47,17 @@ public class Root : MonoBehaviour
     {
         _paralaxManager.Update();
         _spriteAnimator.Update();
-        _playerWalk.Update();
         _aimingMuzzle.Update();
         _bulletsEmitter.Update();
     }
 
     private void FixedUpdate()
     {
-
+        _physicsPlayerWalk.FixedUpdate();
     }
 
     private void OnDestroy()
     {
-
+        _coinsManager.Dispose();
     }
 }

@@ -4,6 +4,12 @@ public class CharacterView : MonoBehaviour
 {
     [SerializeField]
     private SpriteRenderer _spriteRenderer;
+    
+    [SerializeField]
+    private Rigidbody2D _rigidbody;
+    
+    [SerializeField]
+    private Collider2D _collider;
 
     [Header("Settings")]
     [SerializeField]
@@ -36,4 +42,6 @@ public class CharacterView : MonoBehaviour
     public float FlyThresholdValue => _flyThresholdValue;
     public float GroundLevel => _groundLevel;
     public float Acceleration => _acceleration;
+    public Rigidbody2D Rigidbody => _rigidbody;
+    public Collider2D Collider => _collider;
 }
