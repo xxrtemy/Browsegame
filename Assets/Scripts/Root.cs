@@ -21,12 +21,19 @@ public class Root : MonoBehaviour
     [SerializeField]
     private List<CoinView> _coinViews;
 
+    [SerializeField]
+    private AIConfig _config;
+
+    [SerializeField]
+    private EnemyView _enemyView;
+
     private ParalaxManager _paralaxManager;
     private SpriteAnimator _spriteAnimator;
     private AimingMuzzle _aimingMuzzle;
     private BulletsEmitter _bulletsEmitter;
     private PhysicsPlayerWalk _physicsPlayerWalk;
     private CoinsManager _coinsManager;
+    private AIPatrol _patrolAI;
 
 
     [SerializeField]
@@ -40,6 +47,7 @@ public class Root : MonoBehaviour
         _bulletsEmitter = new BulletsEmitter(_bullets, _cannonView.MuzzleTransform);
         _physicsPlayerWalk = new PhysicsPlayerWalk(_characterView, _spriteAnimator);
         _coinsManager = new CoinsManager(_coinViews);
+        _patrolAI = new AIPatrol(_enemyView, new PatrolAIModel(_config));
 
     }
 
@@ -54,6 +62,7 @@ public class Root : MonoBehaviour
     private void FixedUpdate()
     {
         _physicsPlayerWalk.FixedUpdate();
+        _patrolAI.FixedUpdate();
     }
 
     private void OnDestroy()
